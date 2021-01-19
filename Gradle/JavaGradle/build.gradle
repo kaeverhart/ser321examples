@@ -51,6 +51,28 @@ task runFraction(type: JavaExec) {
   main = 'Fraction'
 }
 
+// task taht runs the Fraction Main which requires two arguments be entered by user
+// with given names num and denom
+// Example: gradle runFrac -Pdenom=4 -Pnum=3 or as gradle runFrac -Pnum=3 -Pdenom=4
+task runFrac(type: JavaExec){
+  group 'Fraction Tasks'
+  description 'Tasks which runs Fractions with provided arguments'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Fraction'
+  
+   if (project.hasProperty("num") && project.hasProperty("denom")) {
+    args(project.getProperty('num'), project.getProperty('denom'));
+  } else 
+	println ("please enter two arguments");
+  }
+ 
+
+
+
+
+
 // Try:
 // 1. Change Fraction.main so it accepts 2 arguments
 // 2. Create a new gradle tasks that accepts two arguments and 
