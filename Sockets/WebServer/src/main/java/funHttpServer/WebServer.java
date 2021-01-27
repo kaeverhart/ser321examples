@@ -201,7 +201,8 @@ class WebServer {
           // extract path parameters
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
-          // extract required fields from parameters
+          try{ 
+	  // extract required fields from parameters
           Integer num1 = Integer.parseInt(query_pairs.get("num1"));
           Integer num2 = Integer.parseInt(query_pairs.get("num2"));
 
@@ -213,6 +214,12 @@ class WebServer {
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("Result is: " + result);
+	  }catch(NumberFormatException e){
+	  	builder.append("HTTP/1.1 406 Not Acceptable\n");
+          	builder.append("Content-Type: text/html; charset=utf-8\n");
+          	builder.append("\n");
+          	builder.append("Please provide two integers.");
+	  }
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense
